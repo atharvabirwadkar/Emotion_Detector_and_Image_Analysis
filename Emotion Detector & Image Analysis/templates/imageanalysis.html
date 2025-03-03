@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ... keeping all your existing styles ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .upload-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-box {
+            border: 2px dashed #6366F1;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            background: #f8f9ff;
+            border-color: #4F46E5;
+        }
+
+        .upload-box i {
+            font-size: 3rem;
+            color: #6366F1;
+            margin-bottom: 1rem;
+        }
+
+        .upload-box p {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #6366F1;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: #4F46E5;
+        }
+
+        .upload-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .results-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .emotions-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .emotion-item {
+            background: #f0f2f5;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #4F46E5;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .emotion-item i {
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            color: #6366F1;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .upload-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Emotion Detection System</h1>
+        <p>Upload an image to detect emotions in faces</p>
+    </div>
+
+    <div class="container">
+        <!-- Changed form action from 'predict' to 'image_analysis' -->
+        <form action="{{ url_for('image_analysis') }}" method="post" enctype="multipart/form-data" id="upload-form">
+            <div class="upload-section">
+                <h2>Upload Image</h2>
+                <div class="upload-box" id="upload-box">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag and drop your image here or click to browse</p>
+                    <p class="file-name"></p>
+                    <input type="file" name="file" id="file-input" class="file-input" accept="image/*" required>
+                </div>
+                <button type="submit" class="upload-btn" id="submit-btn" disabled>
+                    <i class="fas fa-search"></i> Detect Emotions
+                </button>
+            </div>
+        </form>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i>
+            <p>Processing image...</p>
+        </div>
+
+        {% if image_path %}
+        <div class="results-section">
+            <h2>Detection Results</h2>
+            <img src="{{ image_path }}?{{ range(1, 1000) | random }}" alt="Analyzed Image" class="results-image">
+            
+            {% if emotions %}
+            <h3>Detected Emotions:</h3>
+            <ul class="emotions-list">
+                {% for emotion in emotions %}
+                <li class="emotion-item">
+                    <i class="fas fa-face-smile"></i>
+                    {{ emotion }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const uploadBox = document.getElementById('upload-box');
+        const fileInput = document.getElementById('file-input');
+        const fileName = document.querySelector('.file-name');
+        const submitBtn = document.getElementById('submit-btn');
+        const uploadForm = document.getElementById('upload-form');
+        const loading = document.getElementById('loading');
+
+        uploadBox.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.style.background = '#f8f9ff';
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.style.background = 'white';
+        });
+
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.style.background = 'white';
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                updateFileName(files[0].name);
+                submitBtn.disabled = false;
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                updateFileName(fileInput.files[0].name);
+                submitBtn.disabled = false;
+            }
+        });
+
+        function updateFileName(name) {
+            fileName.textContent = name;
+        }
+
+        uploadForm.addEventListener('submit', () => {
+            loading.style.display = 'block';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

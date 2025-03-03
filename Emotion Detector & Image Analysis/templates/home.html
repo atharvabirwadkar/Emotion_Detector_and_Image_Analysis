@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection Suite</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50">
+    <!-- Hero Section -->
+    <header class="py-16 px-4 text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Emotion Detection Suite</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Advanced AI-powered tools for detecting and analyzing emotions in real-time and from images
+        </p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 pb-16">
+        <!-- Applications Grid -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Real-time Detection Card -->
+            <div class="relative overflow-hidden group hover:shadow-lg transition-shadow bg-white rounded-lg p-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
+                    <span class="text-blue-600 text-3xl">📷</span> <!-- Camera Emoji -->
+                </div>
+                <h2 class="text-2xl">Real-time Detection</h2>
+                <p>Detect emotions in real-time using your camera</p>
+                <ul class="space-y-2 text-gray-600 mt-4">
+                    <li class="flex items-center">
+                        <span class="text-blue-500 mr-2">➡️</span>
+                        Live camera feed processing
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-blue-500 mr-2">➡️</span>
+                        Instant emotion analysis
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-blue-500 mr-2">➡️</span>
+                        Multiple face detection
+                    </li>
+                </ul>
+                <a href="/realtime">
+                    <button class="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        Launch Real-time Detection
+                    </button>
+                </a>
+            </div>
+
+            <!-- Image Analysis Card -->
+            <div class="relative overflow-hidden group hover:shadow-lg transition-shadow bg-white rounded-lg p-6">
+                <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-2">
+                    <span class="text-indigo-600 text-3xl">📤</span> <!-- Upload Emoji -->
+                </div>
+                <h2 class="text-2xl">Image Analysis</h2>
+                <p>Upload images for detailed emotion analysis</p>
+                <ul class="space-y-2 text-gray-600 mt-4">
+                    <li class="flex items-center">
+                        <span class="text-indigo-500 mr-2">➡️</span>
+                        Upload any image format
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-indigo-500 mr-2">➡️</span>
+                        Detailed emotion breakdown
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-indigo-500 mr-2">➡️</span>
+                        Confidence scoring
+                    </li>
+                </ul>
+                <a href="/image_analysis">
+                    <button class="mt-6 w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                        Launch Image Analysis
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <section class="mt-16 text-center">
+            <h2 class="text-2xl font-semibold mb-4">Explore More</h2>
+            <div class="flex justify-center space-x-4">
+                <a href="/">
+                    <button class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        Home
+                    </button>
+                </a>
+                <a href="/realtime">
+                    <button class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        Real-time Detection
+                    </button>
+                </a>
+                <a href="/image_analysis">
+                    <button class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                        Image Analysis
+                    </button>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="mt-16">
+            <h2 class="text-2xl font-semibold text-center mb-8">Advanced Features</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <span class="text-3xl mb-2">✅</span> <!-- Check Mark Emoji -->
+                    <h3 class="font-semibold mb-2">High Accuracy</h3>
+                    <p class="text-gray-600">Powered by advanced deep learning models</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <span class="text-3xl mb-2">⚡</span> <!-- Lightning Bolt Emoji -->
+                    <h3 class="font-semibold mb-2">Real-time Processing</h3>
+                    <p class="text-gray-600">Instant results with minimal latency</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <span class="text-3xl mb-2">👥</span> <!-- People Emoji -->
+                    <h3 class="font-semibold mb-2">Multiple Faces</h3>
+                    <p class="text-gray-600">Detect emotions in photos</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-8 text-center text-gray-600">
+        <p>NICE.</p>
+    </footer>
+</body>
+</html>
