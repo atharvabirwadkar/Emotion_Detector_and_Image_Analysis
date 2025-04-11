@@ -52,8 +52,6 @@ Emotion-Detector/
 - 📈 Expanding dataset for more emotion categories
 - 🌐 Developing a real-time streaming web app
 
-## Contributors
-Developed by **Om Nanaware**
 
 ## License
 📜 This project is open-source and available under the MIT License.
